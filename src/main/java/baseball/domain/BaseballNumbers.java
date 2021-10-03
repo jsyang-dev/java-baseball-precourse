@@ -2,7 +2,13 @@ package baseball.domain;
 
 import nextstep.utils.Randoms;
 
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static baseball.domain.BaseballNumber.*;
 
 public class BaseballNumbers {
 
@@ -28,7 +34,10 @@ public class BaseballNumbers {
     }
 
     public static BaseballNumbers getRandomInstance() {
-        return new BaseballNumbers(makeRandomNumber(), makeRandomNumber(), makeRandomNumber());
+        int number1 = generateRandomNumber();
+        int number2 = generateRandomNumber(number1);
+        int number3 = generateRandomNumber(number1, number2);
+        return new BaseballNumbers(number1, number2, number3);
     }
 
     public BaseballNumber[] getBaseballNumbers() {
@@ -39,7 +48,7 @@ public class BaseballNumbers {
         int strikeCount = 0;
         int ballCount = 0;
 
-        for (int i = BaseballNumber.START_OF_POSSIBLE_RANGE; i <= BaseballNumber.END_OF_POSSIBLE_RANGE; i++) {
+        for (int i = START_OF_POSSIBLE_RANGE; i <= END_OF_POSSIBLE_RANGE; i++) {
             strikeCount += getAddStrikeCount(baseballNumbersOfPlayer, i);
             ballCount += getAddBallCount(baseballNumbersOfPlayer, i);
         }
@@ -48,24 +57,52 @@ public class BaseballNumbers {
     }
 
     public void generateNewNumber() {
-        baseballNumbers[0] = new BaseballNumber(makeRandomNumber());
-        baseballNumbers[1] = new BaseballNumber(makeRandomNumber());
-        baseballNumbers[2] = new BaseballNumber(makeRandomNumber());
+        baseballNumbers[0] = new BaseballNumber(generateRandomNumber());
+        baseballNumbers[1] = new BaseballNumber(generateRandomNumber(baseballNumbers[0].getValue()));
+        baseballNumbers[2] = new BaseballNumber(
+                generateRandomNumber(baseballNumbers[0].getValue(), baseballNumbers[1].getValue()));
     }
 
     private static void verifyValue(String value) {
-        String pattern = String.format("[%d-%d]{%d}",
-                BaseballNumber.START_OF_POSSIBLE_RANGE,
-                BaseballNumber.END_OF_POSSIBLE_RANGE,
-                MAX_SIZE);
-        if (!Pattern.matches(pattern, value)) {
+        checkNumberRange(value);
+        checkNumberDuplicated(value);
+    }
+
+    private static void checkNumberRange(String value) {
+        String pattern = String.format("[%d-%d]{%d}", START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE);
+        if (!value.matches(pattern)) {
             throw new RuntimeException(String.format("[ERROR] %d부터 %d사이의 숫자 %d개를 입력해야 합니다.",
-                    BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE, MAX_SIZE));
+                    START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE));
         }
     }
 
-    private static int makeRandomNumber() {
-        return Randoms.pickNumberInRange(BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE);
+    private static void checkNumberDuplicated(String value) {
+        Set<String> uniqueValues = new HashSet<>(Arrays.asList(value.split("")));
+        if (uniqueValues.size() != MAX_SIZE) {
+            throw new RuntimeException("[ERROR] 야구 숫자가 중복될 수 없습니다.");
+        }
+    }
+
+    private static int generateRandomNumber(int... except) {
+        List<Integer> exceptNumbers = makeExceptNumbers(except);
+        return pickUniqueNumber(exceptNumbers);
+    }
+
+    private static List<Integer> makeExceptNumbers(int[] except) {
+        List<Integer> exceptNumbers = new ArrayList<>(except.length);
+        for (int exceptNumber : except) {
+            exceptNumbers.add(exceptNumber);
+        }
+
+        return exceptNumbers;
+    }
+
+    private static int pickUniqueNumber(List<Integer> exceptNumbers) {
+        int number;
+        do {
+            number = Randoms.pickNumberInRange(START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE);
+        } while (exceptNumbers.contains(number));
+        return number;
     }
 
     private int getAddStrikeCount(BaseballNumbers baseballNumbersOfPlayer, int i) {
@@ -98,14 +135,6 @@ public class BaseballNumbers {
         return 0;
     }
 
-    private boolean isNotFound(int playerPosition, int computerPosition) {
-        return isSamePosition(playerPosition, NOT_FOUND) || isSamePosition(computerPosition, NOT_FOUND);
-    }
-
-    private boolean isSamePosition(int playerPosition, int computerPosition) {
-        return playerPosition == computerPosition;
-    }
-
     private int findPosition(int baseballNumberValue) {
         for (int i = 0; i < MAX_SIZE; i++) {
             if (isSamePosition(baseballNumbers[i].getValue(), baseballNumberValue)) {
@@ -114,5 +143,13 @@ public class BaseballNumbers {
         }
 
         return NOT_FOUND;
+    }
+
+    private boolean isNotFound(int playerPosition, int computerPosition) {
+        return isSamePosition(playerPosition, NOT_FOUND) || isSamePosition(computerPosition, NOT_FOUND);
+    }
+
+    private boolean isSamePosition(int playerPosition, int computerPosition) {
+        return playerPosition == computerPosition;
     }
 }
