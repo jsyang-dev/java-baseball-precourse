@@ -28,7 +28,7 @@ public class BaseballNumbers {
     }
 
     public static BaseballNumbers getRandomInstance() {
-        return new BaseballNumbers(getRandomNumber(), getRandomNumber(), getRandomNumber());
+        return new BaseballNumbers(makeRandomNumber(), makeRandomNumber(), makeRandomNumber());
     }
 
     public BaseballNumber[] getBaseballNumbers() {
@@ -58,7 +58,7 @@ public class BaseballNumbers {
         }
     }
 
-    private static int getRandomNumber() {
+    private static int makeRandomNumber() {
         return Randoms.pickNumberInRange(BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE);
     }
 
