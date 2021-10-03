@@ -2,12 +2,17 @@ package baseball.domain;
 
 import nextstep.utils.Randoms;
 
+import java.util.regex.Pattern;
+
 public class BaseballNumbers {
+
+    private static final int MAX_SIZE = 3;
+    private static final int NOT_FOUND = -1;
 
     private final BaseballNumber[] baseballNumbers;
 
     private BaseballNumbers(int number1, int number2, int number3) {
-        this.baseballNumbers = new BaseballNumber[3];
+        this.baseballNumbers = new BaseballNumber[MAX_SIZE];
         this.baseballNumbers[0] = new BaseballNumber(number1);
         this.baseballNumbers[1] = new BaseballNumber(number2);
         this.baseballNumbers[2] = new BaseballNumber(number3);
@@ -17,12 +22,32 @@ public class BaseballNumbers {
         return new BaseballNumbers(number1, number2, number3);
     }
 
+    public static BaseballNumbers from(String value) {
+        verifyValue(value);
+        return new BaseballNumbers(
+                Character.getNumericValue(value.charAt(0)),
+                Character.getNumericValue(value.charAt(1)),
+                Character.getNumericValue(value.charAt(2))
+        );
+    }
+
     public static BaseballNumbers getRandomInstance() {
         return new BaseballNumbers(getRandomNumber(), getRandomNumber(), getRandomNumber());
     }
 
     public BaseballNumber[] getBaseballNumbers() {
         return baseballNumbers;
+    }
+
+    private static void verifyValue(String value) {
+        String pattern = String.format("[%d-%d]{%d}",
+                BaseballNumber.START_OF_POSSIBLE_RANGE,
+                BaseballNumber.END_OF_POSSIBLE_RANGE,
+                MAX_SIZE);
+        if (!Pattern.matches(pattern, value)) {
+            throw new RuntimeException(String.format("[ERROR] %d부터 %d사이의 숫자 %d개를 입력해야 합니다.",
+                    BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE, MAX_SIZE));
+        }
     }
 
     private static int getRandomNumber() {
