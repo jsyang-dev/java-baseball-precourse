@@ -5,6 +5,7 @@ public class BaseballScore {
     public static final String STRIKE = "스트라이크";
     public static final String BALL = "볼";
     public static final String NOTHING = "낫싱";
+    private static final int WIN_STRIKE_COUNT = 3;
 
     private final int strikeCount;
     private final int ballCount;
@@ -20,6 +21,10 @@ public class BaseballScore {
 
     public int getBallCount() {
         return ballCount;
+    }
+
+    public boolean isWin() {
+        return strikeCount == WIN_STRIKE_COUNT;
     }
 
     @Override
