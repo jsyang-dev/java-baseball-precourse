@@ -2,6 +2,8 @@ package baseball.domain;
 
 import java.util.Objects;
 
+import static baseball.domain.ConsoleMessage.*;
+
 public class BaseballNumber {
 
     public static final int START_OF_POSSIBLE_RANGE = 1;
@@ -21,7 +23,7 @@ public class BaseballNumber {
     private void verifyValue(int value) {
         if (value < START_OF_POSSIBLE_RANGE || value > END_OF_POSSIBLE_RANGE) {
             throw new IllegalArgumentException(String.format(
-                    "[ERROR] 야구 숫자는 %d부터 %d사이의 숫자여야 합니다.", START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
+                    BASEBALL_NUMBER_VERIFY_ERROR, START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
         }
     }
 

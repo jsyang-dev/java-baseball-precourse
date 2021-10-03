@@ -34,7 +34,7 @@ public class BaseballNumbersTest {
         // when & then
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
-                .withMessageMatching("\\[ERROR] \\d+부터 \\d+사이의 숫자 \\d+개를 입력해야 합니다.");
+                .withMessageMatching("\\d+부터 \\d+사이의 숫자 \\d+개를 입력해야 합니다.");
 
     }
 
@@ -45,7 +45,7 @@ public class BaseballNumbersTest {
         // when & then
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
-                .withMessageMatching("\\[ERROR] 야구 숫자가 중복될 수 없습니다.");
+                .withMessageMatching("야구 숫자가 중복될 수 없습니다.");
 
     }
 

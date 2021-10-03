@@ -27,6 +27,6 @@ public class BaseballNumberTest {
         // when & then
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> new BaseballNumber(input))
-                .withMessageMatching("\\[ERROR] 야구 숫자는 \\d+부터 \\d+사이의 숫자여야 합니다.");
+                .withMessageMatching("야구 숫자는 \\d+부터 \\d+사이의 숫자여야 합니다.");
     }
 }

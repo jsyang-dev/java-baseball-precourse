@@ -1,8 +1,8 @@
 package baseball.domain;
 
-import nextstep.utils.Console;
-
 import java.util.Objects;
+
+import static baseball.domain.ConsoleMessage.*;
 
 public class BaseballGame {
 
@@ -26,12 +26,11 @@ public class BaseballGame {
             BaseballScore baseballScore = null;
 
             do {
-                System.out.print("숫자를 입력해주세요 : ");
-                String input = Console.readLine();
+                String input = ConsoleInOut.input(BASEBALL_GAME_START_INPUT);
                 baseballScore = calculateScore(baseballScore, input);
             } while (!Objects.requireNonNull(baseballScore).isWin());
 
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+            ConsoleInOut.printMessage(BASEBALL_GAME_START_OUTPUT);
             restart();
         }
     }
@@ -40,9 +39,9 @@ public class BaseballGame {
         try {
             BaseballNumbers baseballNumbersOfPlayer = BaseballNumbers.from(input);
             baseballScore = baseballNumbersOfComputer.calculateScore(baseballNumbersOfPlayer);
-            System.out.println(baseballScore);
+            ConsoleInOut.printMessage(baseballScore.toString());
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            ConsoleInOut.printErrorMessage(e.getMessage());
         }
 
         return baseballScore;
@@ -50,14 +49,9 @@ public class BaseballGame {
 
     private void restart() {
         do {
-            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-            String input = Console.readLine();
-
+            String input = ConsoleInOut.inputWithNewLine(BASEBALL_GAME_RESTART_INPUT);
             gameStatus = GameStatus.fromCode(input);
-
-            if (gameStatus == GameStatus.ERROR) {
-                System.out.println("[ERROR] 1 이나 2를 입력해야 합니다.");
-            }
+            ConsoleInOut.printErrorMessageByGameStatus(gameStatus);
         } while (gameStatus == GameStatus.ERROR);
 
         if (gameStatus == GameStatus.ONGOING) {
