@@ -14,20 +14,6 @@ public class BaseballNumbersTest {
 
     @Test
     @DisplayName("3개의 숫자로 야구 숫자 세트를 생성한다.")
-    void of() {
-        // when
-        BaseballNumbers baseballNumbers = BaseballNumbers.of(1, 2, 3);
-
-        // then
-        assertThat(baseballNumbers.getBaseballNumbers()).containsExactly(
-                new BaseballNumber(1),
-                new BaseballNumber(2),
-                new BaseballNumber(3)
-        );
-    }
-
-    @Test
-    @DisplayName("3개의 숫자로 야구 숫자 세트를 생성한다.")
     void from() {
         // when
         BaseballNumbers baseballNumbers = BaseballNumbers.from("123");

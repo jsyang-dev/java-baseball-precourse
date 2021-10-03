@@ -18,10 +18,6 @@ public class BaseballNumbers {
         this.baseballNumbers[2] = new BaseballNumber(number3);
     }
 
-    public static BaseballNumbers of(int number1, int number2, int number3) {
-        return new BaseballNumbers(number1, number2, number3);
-    }
-
     public static BaseballNumbers from(String value) {
         verifyValue(value);
         return new BaseballNumbers(
