@@ -47,6 +47,12 @@ public class BaseballNumbers {
         return new BaseballScore(strikeCount, ballCount);
     }
 
+    public void generateNewNumber() {
+        baseballNumbers[0] = new BaseballNumber(makeRandomNumber());
+        baseballNumbers[1] = new BaseballNumber(makeRandomNumber());
+        baseballNumbers[2] = new BaseballNumber(makeRandomNumber());
+    }
+
     private static void verifyValue(String value) {
         String pattern = String.format("[%d-%d]{%d}",
                 BaseballNumber.START_OF_POSSIBLE_RANGE,
