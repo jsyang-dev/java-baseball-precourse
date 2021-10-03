@@ -65,6 +65,24 @@ public class BaseballNumbersTest {
         );
     }
 
+    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CsvSource(value = {"425:123:1:0", "425:456:1:1", "425:567:0:1", "425:789:0:0"}, delimiter = ':')
+    @DisplayName("야구 점수를 계산한다.")
+    void calculateScore(String computer, String player, int expectedStrikeCount, int expectedBallCount) {
+        // given
+        BaseballNumbers baseballNumbersOfComputer = BaseballNumbers.from(computer);
+        BaseballNumbers baseballNumbersOfPlayer = BaseballNumbers.from(player);
+
+        // when
+        BaseballScore baseballScore = baseballNumbersOfComputer.calculateScore(baseballNumbersOfPlayer);
+
+        // then
+        assertAll(
+                () -> assertThat(baseballScore.getStrikeCount()).isEqualTo(expectedStrikeCount),
+                () -> assertThat(baseballScore.getBallCount()).isEqualTo(expectedBallCount)
+        );
+    }
+
     private AbstractIntegerAssert<?> assertBaseballNumberValue(BaseballNumber baseballNumber) {
         return assertThat(baseballNumber.getValue())
                 .isBetween(BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE);

@@ -14,6 +14,14 @@ public class BaseballScore {
         this.ballCount = ballCount;
     }
 
+    public int getStrikeCount() {
+        return strikeCount;
+    }
+
+    public int getBallCount() {
+        return ballCount;
+    }
+
     @Override
     public String toString() {
         if (strikeCount <= 0 && ballCount <= 0) {

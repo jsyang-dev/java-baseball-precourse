@@ -39,6 +39,18 @@ public class BaseballNumbers {
         return baseballNumbers;
     }
 
+    public BaseballScore calculateScore(BaseballNumbers baseballNumbersOfPlayer) {
+        int strikeCount = 0;
+        int ballCount = 0;
+
+        for (int i = BaseballNumber.START_OF_POSSIBLE_RANGE; i <= BaseballNumber.END_OF_POSSIBLE_RANGE; i++) {
+            strikeCount += getAddStrikeCount(baseballNumbersOfPlayer, i);
+            ballCount += getAddBallCount(baseballNumbersOfPlayer, i);
+        }
+
+        return new BaseballScore(strikeCount, ballCount);
+    }
+
     private static void verifyValue(String value) {
         String pattern = String.format("[%d-%d]{%d}",
                 BaseballNumber.START_OF_POSSIBLE_RANGE,
@@ -52,5 +64,53 @@ public class BaseballNumbers {
 
     private static int getRandomNumber() {
         return Randoms.pickNumberInRange(BaseballNumber.START_OF_POSSIBLE_RANGE, BaseballNumber.END_OF_POSSIBLE_RANGE);
+    }
+
+    private int getAddStrikeCount(BaseballNumbers baseballNumbersOfPlayer, int i) {
+        int playerPosition = baseballNumbersOfPlayer.findPosition(i);
+        int computerPosition = findPosition(i);
+
+        if (isNotFound(playerPosition, computerPosition)) {
+            return 0;
+        }
+
+        if (isSamePosition(playerPosition, computerPosition)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private int getAddBallCount(BaseballNumbers baseballNumbersOfPlayer, int i) {
+        int playerPosition = baseballNumbersOfPlayer.findPosition(i);
+        int computerPosition = findPosition(i);
+
+        if (isNotFound(playerPosition, computerPosition)) {
+            return 0;
+        }
+
+        if (!isSamePosition(playerPosition, computerPosition)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private boolean isNotFound(int playerPosition, int computerPosition) {
+        return isSamePosition(playerPosition, NOT_FOUND) || isSamePosition(computerPosition, NOT_FOUND);
+    }
+
+    private boolean isSamePosition(int playerPosition, int computerPosition) {
+        return playerPosition == computerPosition;
+    }
+
+    private int findPosition(int baseballNumberValue) {
+        for (int i = 0; i < MAX_SIZE; i++) {
+            if (isSamePosition(baseballNumbers[i].getValue(), baseballNumberValue)) {
+                return i;
+            }
+        }
+
+        return NOT_FOUND;
     }
 }
