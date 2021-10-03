@@ -32,7 +32,7 @@ public class BaseballNumbersTest {
     @DisplayName("잘못된 문자열로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException1(String input) {
         // when & then
-        assertThatExceptionOfType(RuntimeException.class)
+        assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
                 .withMessageMatching("\\[ERROR] \\d+부터 \\d+사이의 숫자 \\d+개를 입력해야 합니다.");
 
@@ -43,7 +43,7 @@ public class BaseballNumbersTest {
     @DisplayName("중복된 숫자로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException2(String input) {
         // when & then
-        assertThatExceptionOfType(RuntimeException.class)
+        assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
                 .withMessageMatching("\\[ERROR] 야구 숫자가 중복될 수 없습니다.");
 

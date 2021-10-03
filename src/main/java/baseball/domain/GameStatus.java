@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public enum GameStatus {
 
-    ONGOING("1"), ENDED("2");
+    ONGOING("1"), ENDED("2"), ERROR("");
 
     private final String code;
 
@@ -18,6 +18,6 @@ public enum GameStatus {
                 return gameStatus;
             }
         }
-        return null;
+        return ERROR;
     }
 }

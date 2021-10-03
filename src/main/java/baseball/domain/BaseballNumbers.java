@@ -71,7 +71,7 @@ public class BaseballNumbers {
     private static void checkNumberRange(String value) {
         String pattern = String.format("[%d-%d]{%d}", START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE);
         if (!value.matches(pattern)) {
-            throw new RuntimeException(String.format("[ERROR] %d부터 %d사이의 숫자 %d개를 입력해야 합니다.",
+            throw new IllegalArgumentException(String.format("[ERROR] %d부터 %d사이의 숫자 %d개를 입력해야 합니다.",
                     START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE));
         }
     }
@@ -79,7 +79,7 @@ public class BaseballNumbers {
     private static void checkNumberDuplicated(String value) {
         Set<String> uniqueValues = new HashSet<>(Arrays.asList(value.split("")));
         if (uniqueValues.size() != MAX_SIZE) {
-            throw new RuntimeException("[ERROR] 야구 숫자가 중복될 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 야구 숫자가 중복될 수 없습니다.");
         }
     }
 

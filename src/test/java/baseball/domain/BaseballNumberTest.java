@@ -25,7 +25,7 @@ public class BaseballNumberTest {
     @DisplayName("야구 숫자를 생성을 실패한다.")
     void initException(int input) {
         // when & then
-        assertThatExceptionOfType(RuntimeException.class)
+        assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> new BaseballNumber(input))
                 .withMessageMatching("\\[ERROR] 야구 숫자는 \\d+부터 \\d+사이의 숫자여야 합니다.");
     }

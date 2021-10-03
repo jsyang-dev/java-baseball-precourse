@@ -20,7 +20,7 @@ public class BaseballNumber {
 
     private void verifyValue(int value) {
         if (value < START_OF_POSSIBLE_RANGE || value > END_OF_POSSIBLE_RANGE) {
-            throw new RuntimeException(String.format(
+            throw new IllegalArgumentException(String.format(
                     "[ERROR] 야구 숫자는 %d부터 %d사이의 숫자여야 합니다.", START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
         }
     }
