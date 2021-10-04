@@ -11,16 +11,16 @@ public class BaseballGameTest {
 
     @Test
     @DisplayName("야구 게임을 생성한다.")
-    void init() {
+    void create() {
         // when
-        BaseballGame baseballGame = BaseballGame.newInstance();
+        BaseballGame baseballGame = BaseballGame.create();
 
         // then
         assertAll(
-                () -> assertThat(baseballGame.getBaseballNumbersOfComputer()).isNotNull(),
-                () -> assertThat(baseballGame.getBaseballNumbersOfComputer().getBaseballNumbers()[0]).isNotNull(),
-                () -> assertThat(baseballGame.getBaseballNumbersOfComputer().getBaseballNumbers()[1]).isNotNull(),
-                () -> assertThat(baseballGame.getBaseballNumbersOfComputer().getBaseballNumbers()[2]).isNotNull()
+                () -> assertThat(baseballGame.getBaseballNumbers()).isNotNull(),
+                () -> assertThat(baseballGame.getBaseballNumbers().getBaseballNumbers()[0]).isNotNull(),
+                () -> assertThat(baseballGame.getBaseballNumbers().getBaseballNumbers()[1]).isNotNull(),
+                () -> assertThat(baseballGame.getBaseballNumbers().getBaseballNumbers()[2]).isNotNull()
         );
     }
 }

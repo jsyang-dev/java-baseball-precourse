@@ -34,7 +34,7 @@ public class BaseballNumbers {
         );
     }
 
-    public static BaseballNumbers getRandomInstance() {
+    public static BaseballNumbers createRandomInstance() {
         int number1 = generateRandomNumber();
         int number2 = generateRandomNumber(number1);
         int number3 = generateRandomNumber(number1, number2);

@@ -4,19 +4,19 @@ import static baseball.domain.ConsoleMessage.*;
 
 public class BaseballGame {
 
-    private final BaseballNumbers baseballNumbersOfComputer;
+    private final BaseballNumbers baseballNumbers;
     private GameStatus gameStatus = GameStatus.ONGOING;
 
-    private BaseballGame(BaseballNumbers baseballNumbersOfComputer) {
-        this.baseballNumbersOfComputer = baseballNumbersOfComputer;
+    private BaseballGame(BaseballNumbers baseballNumbers) {
+        this.baseballNumbers = baseballNumbers;
     }
 
-    public static BaseballGame newInstance() {
-        return new BaseballGame(BaseballNumbers.getRandomInstance());
+    public static BaseballGame create() {
+        return new BaseballGame(BaseballNumbers.createRandomInstance());
     }
 
-    public BaseballNumbers getBaseballNumbersOfComputer() {
-        return baseballNumbersOfComputer;
+    public BaseballNumbers getBaseballNumbers() {
+        return baseballNumbers;
     }
 
     public void start() {
@@ -36,7 +36,7 @@ public class BaseballGame {
     private BaseballScore calculateScore(BaseballScore baseballScore, String input) {
         try {
             BaseballNumbers baseballNumbersOfPlayer = BaseballNumbers.from(input);
-            baseballScore = baseballNumbersOfComputer.calculateScore(baseballNumbersOfPlayer);
+            baseballScore = baseballNumbers.calculateScore(baseballNumbersOfPlayer);
             ConsoleInOut.printMessage(baseballScore.toString());
         } catch (IllegalArgumentException e) {
             ConsoleInOut.printErrorMessage(e.getMessage());
@@ -53,7 +53,7 @@ public class BaseballGame {
         } while (gameStatus == GameStatus.ERROR);
 
         if (gameStatus == GameStatus.ONGOING) {
-            baseballNumbersOfComputer.generateNewNumber();
+            baseballNumbers.generateNewNumber();
         }
     }
 }

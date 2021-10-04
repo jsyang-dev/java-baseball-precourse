@@ -51,9 +51,9 @@ public class BaseballNumbersTest {
 
     @Test
     @DisplayName("임의의 숫자로 이루어진 야구 숫자 세트를 생성한다.")
-    void getRandomInstance() {
+    void createRandomInstance() {
         // when
-        BaseballNumbers baseballNumbers = BaseballNumbers.getRandomInstance();
+        BaseballNumbers baseballNumbers = BaseballNumbers.createRandomInstance();
 
         // then
         assertAll(
