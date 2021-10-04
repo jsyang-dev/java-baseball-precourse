@@ -1,7 +1,5 @@
 package baseball.domain;
 
-import java.util.Objects;
-
 import static baseball.domain.ConsoleMessage.*;
 
 public class BaseballGame {
@@ -23,12 +21,12 @@ public class BaseballGame {
 
     public void start() {
         while (gameStatus == GameStatus.ONGOING) {
-            BaseballScore baseballScore = null;
+            BaseballScore baseballScore = BaseballScore.getNothingInstance();
 
             do {
                 String input = ConsoleInOut.input(BASEBALL_GAME_START_INPUT);
                 baseballScore = calculateScore(baseballScore, input);
-            } while (!Objects.requireNonNull(baseballScore).isWin());
+            } while (!baseballScore.isWin());
 
             ConsoleInOut.printMessage(BASEBALL_GAME_START_OUTPUT);
             restart();

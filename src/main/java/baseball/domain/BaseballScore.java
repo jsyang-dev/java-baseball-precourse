@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import java.util.Objects;
+
 public class BaseballScore {
 
     public static final String STRIKE = "스트라이크";
@@ -7,12 +9,22 @@ public class BaseballScore {
     public static final String NOTHING = "낫싱";
     private static final int WIN_STRIKE_COUNT = 3;
 
+    private static BaseballScore NOTHING_INSTANCE;
+
     private final int strikeCount;
     private final int ballCount;
 
     public BaseballScore(int strikeCount, int ballCount) {
         this.strikeCount = strikeCount;
         this.ballCount = ballCount;
+    }
+
+    public static BaseballScore getNothingInstance() {
+        if (Objects.isNull(NOTHING_INSTANCE)) {
+            NOTHING_INSTANCE = new BaseballScore(0, 0);
+        }
+
+        return NOTHING_INSTANCE;
     }
 
     public int getStrikeCount() {
@@ -41,7 +53,7 @@ public class BaseballScore {
             return getBallText();
         }
 
-        return getStrikeText()+ " " + getBallText();
+        return String.format("%s %s", getStrikeText(), getBallText());
     }
 
     private String getStrikeText() {
