@@ -4,6 +4,7 @@ import baseball.CustomParameterizedTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static baseball.domain.ConsoleMessage.*;
 import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("야구 숫자 도메인 테스트")
@@ -27,6 +28,6 @@ public class BaseballNumberTest {
         // when & then
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> new BaseballNumber(input))
-                .withMessageMatching("야구 숫자는 \\d+부터 \\d+사이의 숫자여야 합니다.");
+                .withMessageMatching(BASEBALL_NUMBER_VERIFY_ERROR.replace("%d", "\\d+"));
     }
 }

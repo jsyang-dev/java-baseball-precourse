@@ -8,7 +8,7 @@ public class ConsoleMessage {
     public static final String BASEBALL_GAME_RESTART_ERROR = "1 이나 2를 입력해야 합니다.";
 
     public static final String BASEBALL_NUMBERS_RANGE_ERROR = "%d부터 %d사이의 숫자 %d개를 입력해야 합니다.";
-    public static final String BASEBALL_NUMBERS_DUPLICATED_ERROR = "야구 숫자가 중복될 수 없습니다.";
+    public static final String BASEBALL_NUMBERS_DUPLICATED_ERROR = "중복되지 않은 숫자를 입력해야 합니다.";
 
-    public static final String BASEBALL_NUMBER_VERIFY_ERROR = "야구 숫자는 %d부터 %d사이의 숫자여야 합니다.";
+    public static final String BASEBALL_NUMBER_VERIFY_ERROR = "%d부터 %d사이의 숫자를 입력해야 합니다.";
 }
