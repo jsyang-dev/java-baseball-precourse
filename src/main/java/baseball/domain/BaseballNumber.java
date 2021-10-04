@@ -20,13 +20,6 @@ public class BaseballNumber {
         return value;
     }
 
-    private void verifyValue(int value) {
-        if (value < START_OF_POSSIBLE_RANGE || value > END_OF_POSSIBLE_RANGE) {
-            throw new IllegalArgumentException(String.format(
-                    BASEBALL_NUMBER_VERIFY_ERROR, START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,5 +31,16 @@ public class BaseballNumber {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    private void verifyValue(int value) {
+        if (isImpossibleRange(value)) {
+            throw new IllegalArgumentException(String.format(
+                    BASEBALL_NUMBER_VERIFY_ERROR, START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
+        }
+    }
+
+    private boolean isImpossibleRange(int value) {
+        return value < START_OF_POSSIBLE_RANGE || value > END_OF_POSSIBLE_RANGE;
     }
 }
