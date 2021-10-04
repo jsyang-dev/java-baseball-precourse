@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import baseball.ui.ConsoleView;
+
 import static baseball.domain.ConsoleMessage.*;
 
 public class BaseballGame {
@@ -22,7 +24,7 @@ public class BaseballGame {
     public void start() {
         while (gameStatus == GameStatus.ONGOING) {
             inputNumbersOfPlayer();
-            ConsoleInOut.printMessage(BASEBALL_GAME_START_OUTPUT);
+            ConsoleView.printMessage(BASEBALL_GAME_START_OUTPUT);
             restart();
         }
     }
@@ -30,7 +32,7 @@ public class BaseballGame {
     private void inputNumbersOfPlayer() {
         BaseballScore baseballScore = BaseballScore.getNothingInstance();
         do {
-            String input = ConsoleInOut.input(BASEBALL_GAME_START_INPUT);
+            String input = ConsoleView.input(BASEBALL_GAME_START_INPUT);
             baseballScore = calculateScore(baseballScore, input);
         } while (!baseballScore.isWin());
     }
@@ -39,21 +41,27 @@ public class BaseballGame {
         try {
             BaseballNumbers baseballNumbersOfPlayer = BaseballNumbers.from(input);
             baseballScore = baseballNumbers.calculateScore(baseballNumbersOfPlayer);
-            ConsoleInOut.printMessage(baseballScore.toString());
+            ConsoleView.printMessage(baseballScore.toString());
         } catch (IllegalArgumentException e) {
-            ConsoleInOut.printErrorMessage(e.getMessage());
+            ConsoleView.printErrorMessage(e.getMessage());
         }
         return baseballScore;
     }
 
     private void restart() {
         do {
-            String input = ConsoleInOut.inputWithNewLine(BASEBALL_GAME_RESTART_INPUT);
+            String input = ConsoleView.inputWithNewLine(BASEBALL_GAME_RESTART_INPUT);
             gameStatus = GameStatus.fromCode(input);
-            ConsoleInOut.printErrorMessageByGameStatus(gameStatus);
+            printErrorMessageByGameStatus();
         } while (gameStatus == GameStatus.ERROR);
 
         generateNewBaseballNumbers();
+    }
+
+    private void printErrorMessageByGameStatus() {
+        if (gameStatus == GameStatus.ERROR) {
+            ConsoleView.printErrorMessage(BASEBALL_GAME_RESTART_ERROR);
+        }
     }
 
     private void generateNewBaseballNumbers() {
