@@ -1,16 +1,16 @@
 package baseball.domain;
 
+import baseball.CustomParameterizedTest;
 import org.assertj.core.api.AbstractIntegerAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("야구 숫자 세트 테스트")
+@DisplayName("야구 숫자 세트 도메인 테스트")
 public class BaseballNumbersTest {
 
     @Test
@@ -21,14 +21,12 @@ public class BaseballNumbersTest {
 
         // then
         assertThat(baseballNumbers.getBaseballNumbers()).containsExactly(
-                new BaseballNumber(1),
-                new BaseballNumber(2),
-                new BaseballNumber(3)
+                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3)
         );
     }
 
-    @ParameterizedTest(name = "{displayName} - {arguments}")
-    @CsvSource(value = {"023", "12", "1234", "12a"}, delimiter = ':')
+    @CustomParameterizedTest
+    @ValueSource(strings = {"023", "12", "1234", "12a", "abc"})
     @DisplayName("잘못된 문자열로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException1(String input) {
         // when & then
@@ -38,8 +36,8 @@ public class BaseballNumbersTest {
 
     }
 
-    @ParameterizedTest(name = "{displayName} - {arguments}")
-    @ValueSource(strings = {"112", "233", "343", "555"})
+    @CustomParameterizedTest
+    @ValueSource(strings = {"112", "233", "343", "445", "555"})
     @DisplayName("중복된 숫자로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException2(String input) {
         // when & then
@@ -63,7 +61,7 @@ public class BaseballNumbersTest {
         );
     }
 
-    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CustomParameterizedTest
     @CsvSource(value = {"425:123:1:0", "425:456:1:1", "425:567:0:1", "425:789:0:0"}, delimiter = ':')
     @DisplayName("야구 점수를 계산한다.")
     void calculateScore(String computer, String player, int expectedStrikeCount, int expectedBallCount) {

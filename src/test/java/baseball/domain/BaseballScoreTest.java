@@ -1,15 +1,15 @@
 package baseball.domain;
 
+import baseball.CustomParameterizedTest;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DisplayName("야구 점수 테스트")
+@DisplayName("야구 점수 도메인 테스트")
 class BaseballScoreTest {
 
-    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CustomParameterizedTest
     @CsvSource(value = {"1:1:false", "3:0:true", "0:3:false", "0:0:false"}, delimiter = ':')
     @DisplayName("승리 여부를 조회한다.")
     void isWin(int strikeCount, int ballCount, boolean expected) {
@@ -23,7 +23,7 @@ class BaseballScoreTest {
         assertThat(win).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "{displayName} - {arguments}")
+    @CustomParameterizedTest
     @CsvSource(value = {
             "1:1:1" + BaseballScore.STRIKE + " " + "1" + BaseballScore.BALL,
             "3:0:3" + BaseballScore.STRIKE,

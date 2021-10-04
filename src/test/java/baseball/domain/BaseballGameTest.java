@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("야구 게임 테스트")
+@DisplayName("야구 게임 도메인 테스트")
 public class BaseballGameTest {
 
     @Test
