@@ -57,7 +57,7 @@ public class BaseballNumbers {
         return new BaseballScore(strikeCount, ballCount);
     }
 
-    public void generateNewNumber() {
+    public void generateNewBaseballNumbers() {
         baseballNumbers[0] = new BaseballNumber(generateRandomNumber());
         baseballNumbers[1] = new BaseballNumber(generateRandomNumber(baseballNumbers[0].getValue()));
         baseballNumbers[2] = new BaseballNumber(
@@ -94,7 +94,6 @@ public class BaseballNumbers {
         for (int exceptNumber : except) {
             exceptNumbers.add(exceptNumber);
         }
-
         return exceptNumbers;
     }
 
@@ -103,6 +102,7 @@ public class BaseballNumbers {
         do {
             number = Randoms.pickNumberInRange(START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE);
         } while (exceptNumbers.contains(number));
+
         return number;
     }
 
@@ -113,11 +113,9 @@ public class BaseballNumbers {
         if (isNotFound(playerPosition, computerPosition)) {
             return 0;
         }
-
         if (isSamePosition(playerPosition, computerPosition)) {
             return 1;
         }
-
         return 0;
     }
 
@@ -128,11 +126,9 @@ public class BaseballNumbers {
         if (isNotFound(playerPosition, computerPosition)) {
             return 0;
         }
-
         if (!isSamePosition(playerPosition, computerPosition)) {
             return 1;
         }
-
         return 0;
     }
 
@@ -142,7 +138,6 @@ public class BaseballNumbers {
                 return i;
             }
         }
-
         return NOT_FOUND;
     }
 

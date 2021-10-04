@@ -21,16 +21,18 @@ public class BaseballGame {
 
     public void start() {
         while (gameStatus == GameStatus.ONGOING) {
-            BaseballScore baseballScore = BaseballScore.getNothingInstance();
-
-            do {
-                String input = ConsoleInOut.input(BASEBALL_GAME_START_INPUT);
-                baseballScore = calculateScore(baseballScore, input);
-            } while (!baseballScore.isWin());
-
+            inputNumbersOfPlayer();
             ConsoleInOut.printMessage(BASEBALL_GAME_START_OUTPUT);
             restart();
         }
+    }
+
+    private void inputNumbersOfPlayer() {
+        BaseballScore baseballScore = BaseballScore.getNothingInstance();
+        do {
+            String input = ConsoleInOut.input(BASEBALL_GAME_START_INPUT);
+            baseballScore = calculateScore(baseballScore, input);
+        } while (!baseballScore.isWin());
     }
 
     private BaseballScore calculateScore(BaseballScore baseballScore, String input) {
@@ -41,7 +43,6 @@ public class BaseballGame {
         } catch (IllegalArgumentException e) {
             ConsoleInOut.printErrorMessage(e.getMessage());
         }
-
         return baseballScore;
     }
 
@@ -52,8 +53,12 @@ public class BaseballGame {
             ConsoleInOut.printErrorMessageByGameStatus(gameStatus);
         } while (gameStatus == GameStatus.ERROR);
 
+        generateNewBaseballNumbers();
+    }
+
+    private void generateNewBaseballNumbers() {
         if (gameStatus == GameStatus.ONGOING) {
-            baseballNumbers.generateNewNumber();
+            baseballNumbers.generateNewBaseballNumbers();
         }
     }
 }

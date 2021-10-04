@@ -23,7 +23,6 @@ public class BaseballScore {
         if (Objects.isNull(NOTHING_INSTANCE)) {
             NOTHING_INSTANCE = new BaseballScore(0, 0);
         }
-
         return NOTHING_INSTANCE;
     }
 
@@ -41,26 +40,35 @@ public class BaseballScore {
 
     @Override
     public String toString() {
-        if (strikeCount <= 0 && ballCount <= 0) {
+        if (isNothing()) {
             return NOTHING;
         }
-
-        if (strikeCount > 0 && ballCount <= 0) {
-            return getStrikeText();
+        if (isOnlyStrike()) {
+            return makeStrikeText();
         }
-
-        if (strikeCount <= 0) {
-            return getBallText();
+        if (isOnlyBall()) {
+            return makeBallText();
         }
-
-        return String.format("%s %s", getStrikeText(), getBallText());
+        return String.format("%s %s", makeStrikeText(), makeBallText());
     }
 
-    private String getStrikeText() {
+    private boolean isNothing() {
+        return strikeCount <= 0 && ballCount <= 0;
+    }
+
+    private boolean isOnlyStrike() {
+        return strikeCount > 0 && ballCount <= 0;
+    }
+
+    private boolean isOnlyBall() {
+        return strikeCount <= 0 && ballCount > 0;
+    }
+
+    private String makeStrikeText() {
         return strikeCount + STRIKE;
     }
 
-    private String getBallText() {
+    private String makeBallText() {
         return ballCount + BALL;
     }
 }
