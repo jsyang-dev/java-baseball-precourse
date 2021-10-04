@@ -49,9 +49,9 @@ public class BaseballNumbers {
         int strikeCount = 0;
         int ballCount = 0;
 
-        for (int i = START_OF_POSSIBLE_RANGE; i <= END_OF_POSSIBLE_RANGE; i++) {
-            strikeCount += getAddStrikeCount(baseballNumbersOfPlayer, i);
-            ballCount += getAddBallCount(baseballNumbersOfPlayer, i);
+        for (int findingNumber = START_OF_POSSIBLE_RANGE; findingNumber <= END_OF_POSSIBLE_RANGE; findingNumber++) {
+            strikeCount += getAddStrikeCount(baseballNumbersOfPlayer, findingNumber);
+            ballCount += getAddBallCount(baseballNumbersOfPlayer, findingNumber);
         }
 
         return new BaseballScore(strikeCount, ballCount);
@@ -106,9 +106,9 @@ public class BaseballNumbers {
         return number;
     }
 
-    private int getAddStrikeCount(BaseballNumbers baseballNumbersOfPlayer, int i) {
-        int playerPosition = baseballNumbersOfPlayer.findPosition(i);
-        int computerPosition = findPosition(i);
+    private int getAddStrikeCount(BaseballNumbers baseballNumbersOfPlayer, int findingNumber) {
+        int playerPosition = baseballNumbersOfPlayer.findPosition(findingNumber);
+        int computerPosition = findPosition(findingNumber);
 
         if (isNotFound(playerPosition, computerPosition)) {
             return 0;
@@ -119,9 +119,9 @@ public class BaseballNumbers {
         return 0;
     }
 
-    private int getAddBallCount(BaseballNumbers baseballNumbersOfPlayer, int i) {
-        int playerPosition = baseballNumbersOfPlayer.findPosition(i);
-        int computerPosition = findPosition(i);
+    private int getAddBallCount(BaseballNumbers baseballNumbersOfPlayer, int findingNumber) {
+        int playerPosition = baseballNumbersOfPlayer.findPosition(findingNumber);
+        int computerPosition = findPosition(findingNumber);
 
         if (isNotFound(playerPosition, computerPosition)) {
             return 0;
@@ -132,13 +132,12 @@ public class BaseballNumbers {
         return 0;
     }
 
-    private int findPosition(int baseballNumberValue) {
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if (isSamePosition(baseballNumbers[i].getValue(), baseballNumberValue)) {
-                return i;
-            }
+    private int findPosition(int findingNumber) {
+        StringBuilder numbers = new StringBuilder();
+        for (BaseballNumber baseballNumber : baseballNumbers) {
+            numbers.append(baseballNumber.getValue());
         }
-        return NOT_FOUND;
+        return numbers.toString().indexOf(String.valueOf(findingNumber));
     }
 
     private boolean isNotFound(int playerPosition, int computerPosition) {
