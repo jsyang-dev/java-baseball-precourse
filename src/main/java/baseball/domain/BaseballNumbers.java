@@ -72,15 +72,15 @@ public class BaseballNumbers {
     private static void checkNumberRange(String value) {
         String pattern = String.format("[%d-%d]{%d}", START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE);
         if (!value.matches(pattern)) {
-            throw new IllegalArgumentException(String.format(BASEBALL_NUMBERS_RANGE_ERROR,
-                    START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE));
+            throw new CustomIllegalArgumentException(BASEBALL_NUMBERS_RANGE_ERROR,
+                    START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE, MAX_SIZE);
         }
     }
 
     private static void checkNumberDuplicated(String value) {
         Set<String> uniqueValues = new HashSet<>(Arrays.asList(value.split("")));
         if (uniqueValues.size() != MAX_SIZE) {
-            throw new IllegalArgumentException(BASEBALL_NUMBERS_DUPLICATED_ERROR);
+            throw new CustomIllegalArgumentException(BASEBALL_NUMBERS_DUPLICATED_ERROR);
         }
     }
 

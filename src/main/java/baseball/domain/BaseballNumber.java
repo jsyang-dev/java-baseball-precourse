@@ -35,8 +35,8 @@ public class BaseballNumber {
 
     private void verifyValue(int value) {
         if (isImpossibleRange(value)) {
-            throw new IllegalArgumentException(String.format(
-                    BASEBALL_NUMBER_VERIFY_ERROR, START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE));
+            throw new CustomIllegalArgumentException(BASEBALL_NUMBER_VERIFY_ERROR,
+                    START_OF_POSSIBLE_RANGE, END_OF_POSSIBLE_RANGE);
         }
     }
 

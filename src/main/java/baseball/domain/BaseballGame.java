@@ -42,8 +42,8 @@ public class BaseballGame {
             BaseballNumbers baseballNumbersOfPlayer = BaseballNumbers.from(input);
             baseballScore = baseballNumbers.calculateScore(baseballNumbersOfPlayer);
             ConsoleView.printMessage(baseballScore.toString());
-        } catch (IllegalArgumentException e) {
-            ConsoleView.printErrorMessage(e.getMessage());
+        } catch (CustomIllegalArgumentException e) {
+            ConsoleView.printErrorMessage(e);
         }
         return baseballScore;
     }

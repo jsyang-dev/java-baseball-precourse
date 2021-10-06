@@ -31,9 +31,9 @@ public class BaseballNumbersTest {
     @DisplayName("잘못된 문자열로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException1(String input) {
         // when & then
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(CustomIllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
-                .withMessageMatching(BASEBALL_NUMBERS_RANGE_ERROR.replace("%d", "\\d+"));
+                .withMessageMatching(BASEBALL_NUMBERS_RANGE_ERROR.getMessage().replace("%d", "\\d+"));
 
     }
 
@@ -42,9 +42,9 @@ public class BaseballNumbersTest {
     @DisplayName("중복된 숫자로 숫자로 야구 숫자 세트를 생성하면 예외가 발생한다.")
     void fromException2(String input) {
         // when & then
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(CustomIllegalArgumentException.class)
                 .isThrownBy(() -> BaseballNumbers.from(input))
-                .withMessageMatching(BASEBALL_NUMBERS_DUPLICATED_ERROR);
+                .withMessageMatching(BASEBALL_NUMBERS_DUPLICATED_ERROR.getMessage());
 
     }
 
