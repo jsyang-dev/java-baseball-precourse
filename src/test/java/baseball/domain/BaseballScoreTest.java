@@ -24,12 +24,7 @@ class BaseballScoreTest {
     }
 
     @CustomParameterizedTest
-    @CsvSource(value = {
-            "1:1:1" + BaseballScore.STRIKE + " " + "1" + BaseballScore.BALL,
-            "3:0:3" + BaseballScore.STRIKE,
-            "0:3:3" + BaseballScore.BALL,
-            "0:0:" + BaseballScore.NOTHING
-    }, delimiter = ':')
+    @CsvSource(value = {"1:1:1스트라이크 1볼", "3:0:3스트라이크", "0:3:3볼", "0:0:낫싱"}, delimiter = ':')
     @DisplayName("야구 점수를 출력한다.")
     void toString(int strikeCount, int ballCount, String expected) {
         // given

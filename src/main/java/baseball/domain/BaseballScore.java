@@ -2,14 +2,12 @@ package baseball.domain;
 
 import java.util.Objects;
 
+import static baseball.domain.JudgmentType.*;
+
 public class BaseballScore {
 
-    public static final String STRIKE = "스트라이크";
-    public static final String BALL = "볼";
-    public static final String NOTHING = "낫싱";
-    private static final int WIN_STRIKE_COUNT = 3;
-
     private static BaseballScore NOTHING_INSTANCE;
+    private static final int WIN_STRIKE_COUNT = 3;
 
     private final int strikeCount;
     private final int ballCount;
@@ -41,7 +39,7 @@ public class BaseballScore {
     @Override
     public String toString() {
         if (isNothing()) {
-            return NOTHING;
+            return NOTHING.toString();
         }
         if (isOnlyStrike()) {
             return makeStrikeText();
@@ -65,10 +63,10 @@ public class BaseballScore {
     }
 
     private String makeStrikeText() {
-        return strikeCount + STRIKE;
+        return STRIKE.toString(strikeCount);
     }
 
     private String makeBallText() {
-        return ballCount + BALL;
+        return BALL.toString(ballCount);
     }
 }
